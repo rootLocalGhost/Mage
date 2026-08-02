@@ -225,3 +225,8 @@ assets/ocr_*
 mage_flow/.gradio/
 .streammind_clips/
 .streammind_codec_cache/
+
+
+# More
+models/
+outputs/
