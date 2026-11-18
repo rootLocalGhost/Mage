@@ -22,6 +22,10 @@
   <a href="https://arxiv.org/abs/2607.19064"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-Mage--Flow-b31b1b" height="22" /></a>
   &nbsp;
   <a href="https://arxiv.org/abs/2607.24904"><img alt="arXiv Mage-VL" src="https://img.shields.io/badge/arXiv-Mage--VL-b31b1b" height="22" /></a>
+  &nbsp;
+  <a href="https://arxiv.org/abs/2610.40747"><img alt="arXiv Mage-VL-Cowork" src="https://img.shields.io/badge/arXiv-Mage--VL--Cowork-b31b1b" height="22" /></a>
+  &nbsp;
+  <a href="https://microsoft.github.io/Mage/cowork/"><img alt="Mage-VL-Cowork Project Page" src="https://img.shields.io/badge/%F0%9F%8C%90-Mage--VL--Cowork-blue" height="22" /></a>
 </p>
 
 
@@ -34,16 +38,17 @@
 
 ---
 
-**Mage** is a family of lightweight, research-friendly multimodal models built at a fixed **4B-parameter** budget. It is designed to make advanced visual **understanding** and **generation** accessible for controlled experiments, post-training research, and vertical-domain applications under realistic compute budgets.
+**Mage** is a family of lightweight, research-friendly multimodal models from Microsoft, built at a fixed **4B-parameter** budget: **Mage-VL** for image and video understanding, **Mage-Flow** for image generation and editing, and **Mage-VL-Cowork** for hybrid computer use with GUI, code, and terminal actions. It is designed to make advanced visual **understanding**, **generation**, and **computer use** accessible for controlled experiments, post-training research, and vertical-domain applications under realistic compute budgets.
 
 The family is organized around a shared **codec-aligned efficiency** philosophy — *spend representation capacity where the signal is* — applied to both the understanding and the generation side:
 
 | Model | Task | Scale | Code | Report |
 | :--- | :--- | :---: | :--- | :--- |
 | **[Mage-VL](mage_vl/)** | Image & video understanding, proactive streaming | 4B | [`mage_vl/`](mage_vl/README.md) | [arXiv](https://arxiv.org/abs/2607.24904) |
+| **[Mage-VL-Cowork](mage_vl_cowork/)** | Hybrid computer use with GUI, code, and terminal actions | 4B | [`mage_vl_cowork/`](mage_vl_cowork/README.md) | [arXiv](https://arxiv.org/abs/2610.40747) |
 | **[Mage-Flow](mage_flow/)** | Text-to-image generation & instruction-based editing | 4B | [`mage_flow/`](mage_flow/README.md) | [arXiv](https://arxiv.org/abs/2607.19064) |
 
-Both models are compact enough to train, fine-tune, and deploy on modest hardware, yet remain competitive with much larger open systems in their respective domains.
+These models are compact enough to train, fine-tune, and deploy on modest hardware, yet remain competitive with much larger open systems in their respective domains.
 
 ---
 
@@ -61,6 +66,19 @@ Both models are compact enough to train, fine-tune, and deploy on modest hardwar
 
 → Details, installation, inference, and proactive streaming: **[`mage_vl/README.md`](mage_vl/README.md)**
 
+## 🖥️ Mage-VL-Cowork — hybrid computer use from evolved harnesses
+
+**Mage-VL-Cowork** is a 4B hybrid computer-use agent that combines visual GUI interaction with code and terminal execution in one policy. It starts from an intermediate Mage-VL checkpoint and uses a five-stage curriculum across midtraining, SFT, and RL.
+
+**Highlights**
+
+- **66.0% on OSWorld-Verified** under a 50-step budget at 4B scale.
+- **Evolved teacher harnesses** provide GUI, terminal, and hybrid demonstrations for different training stages.
+- **Mage-CUA-Forge** synthesizes **293,806 tasks** across **6,915 skills** and retains **318,837 hybrid trajectories**.
+- **Online hybrid RL** adds **10.16 percentage points** over Hybrid SFT while reducing model calls by **13.0%** and output tokens by **25.4%**.
+
+→ Overview, training recipe, and results: **[`mage_vl_cowork/README.md`](mage_vl_cowork/README.md)**
+
 ## 🎨 Mage-Flow — efficient native-resolution generation & editing
 
 **Mage-Flow** is a compact 4B generative stack for **text-to-image generation** and **instruction-based image editing**, built from two co-designed components: **Mage-VAE** (a lightweight, high-fidelity latent tokenizer) and a **Native-Resolution Multimodal Diffusion Transformer** trained with rectified flow matching. Each task ships in **Base**, **RL-aligned**, and **4-step Turbo** variants.
@@ -77,6 +95,7 @@ Both models are compact enough to train, fine-tune, and deploy on modest hardwar
 
 ## 📣 News
 
+- **2026-10-29** — **Mage-VL-Cowork** technical report released on arXiv ([2610.40747](https://arxiv.org/abs/2610.40747)): a 4B hybrid computer-use agent that reaches 66.0% on OSWorld-Verified; weights on 🤗 [microsoft/Mage-VL-Cowork](https://huggingface.co/microsoft/Mage-VL-Cowork).
 - **2026-07-26** — **Mage-VL** released on 🤗 [Hugging Face](https://huggingface.co/microsoft/Mage-VL): a single codec-native checkpoint for image & video understanding **with** a built-in proactive streaming gate, alongside the standalone [Mage-ViT](https://huggingface.co/microsoft/Mage-ViT) visual encoder (ViT pre-training only).
 - **2026-07-22** — **Mage-Flow** checkpoints released on 🤗 [Hugging Face](https://huggingface.co/collections/microsoft/mage): Base, RL-aligned, and 4-step Turbo variants for both text-to-image generation and image editing.
 
@@ -88,6 +107,12 @@ Both models are compact enough to train, fine-tune, and deploy on modest hardwar
 | :--- | :--- | :--- |
 | `Mage-VL` | image & video understanding **+** proactive streaming gate | [🤗 microsoft/Mage-VL](https://huggingface.co/microsoft/Mage-VL) |
 | `Mage-ViT` | codec-native visual encoder (ViT pre-training only) | [🤗 microsoft/Mage-ViT](https://huggingface.co/microsoft/Mage-ViT) |
+
+**Mage-VL-Cowork** — hybrid computer use. A 4B policy that combines GUI interaction with code and terminal execution.
+
+| Model | Task | Hugging Face |
+| :--- | :--- | :--- |
+| `Mage-VL-Cowork` | hybrid computer use (GUI + code & terminal) | [🤗 microsoft/Mage-VL-Cowork](https://huggingface.co/microsoft/Mage-VL-Cowork) |
 
 **Mage-Flow** — generation & editing. Each checkpoint is a self-contained diffusers-style repo (`transformer/` + shared `vae/`, `text_encoder/`, `scheduler/`).
 
@@ -105,21 +130,29 @@ Both models are compact enough to train, fine-tune, and deploy on modest hardwar
 Each model is self-contained in its own directory with a dedicated README:
 
 - **Mage-VL** — image/video understanding demo, codec backends, CLI → **[`mage_vl/README.md`](mage_vl/README.md)**
+- **Mage-VL-Cowork** — project overview, training recipe, and results → **[`mage_vl_cowork/README.md`](mage_vl_cowork/README.md)**
 - **Mage-Flow** — installation, Python API, CLI, prompt enhancement, Gradio app → **[`mage_flow/README.md`](mage_flow/README.md)**
 
 ## 📝 Citation
 
 ```bibtex
-@article{yang2026magevl,
+@article{zhang2026magecowork,
+  title={Mage-VL-Cowork: A Full Training Recipe to Learn Hybrid Computer Use From Evolved Harnesses},
+  author={Zhang, Xiaoyi and Wang, Haoqing and Zhang, Xinjie and Ming, Xiang and Wang, Xing and Yang, Senqiao and Zhang, Kaichen and Jia, Zhaoyang and Tan, Andong and Wang, Xinjiang and others},
+  journal={arXiv preprint arXiv:2610.40747},
+  year={2026}
+}
+
+@article{yang2026mage,
   title={Mage-VL: An Efficient Codec-Native Streaming Multimodal Foundation Model},
-  author={Yang, Senqiao and Zhang, Kaichen and Jia, Zhaoyang and Guo, Jinghao and Shen, Yifei and Zhang, Xinjie and Zhang, Xiaoyi and Wang, Haoqing and Li, Xiao and Zhang, Peng and An, Xiang and Xie, Yin and Liu, Zhening and Guo, Xun and Li, Jiahao and Zheng, Shicheng and Wang, Jinglu and Guo, Zongyu and Xie, Wenxuan and Zheng, Zihan and Luo, Yuxuan and Li, Bin and Lu, Yan},
+  author={Yang, Senqiao and Zhang, Kaichen and Jia, Zhaoyang and Guo, Jinghao and Shen, Yifei and Zhang, Xinjie and Zhang, Xiaoyi and Wang, Haoqing and Li, Xiao and Zhang, Peng and others},
   journal={arXiv preprint arXiv:2607.24904},
   year={2026}
 }
 
-@article{zhang2026mageflow,
+@article{zhang2026mage,
   title={Mage-Flow: An Efficient Native-Resolution Foundation Model for Image Generation and Editing},
-  author={Zhang, Xinjie and Zhang, Peng and Zheng, Shicheng and Guo, Jinghao and Jia, Zhaoyang and Shen, Yifei and Guo, Xun and Luo, Yuxuan and Li, Jiahao and Xie, Wenxuan and Pu, Fanyi and Zhang, Xiaoyi and Zhang, Kaichen and Guo, Zongyu and Bi, Tianci and Gui, Dongnan and Liu, Zhening and Wen, Zimo and Zheng, Zihan and Yang, Senqiao and Li, Xiao and Wang, Jinglu and Li, Bin and Lu, Yan},
+  author={Zhang, Xinjie and Zhang, Peng and Zheng, Shicheng and Guo, Jinghao and Jia, Zhaoyang and Shen, Yifei and Guo, Xun and Luo, Yuxuan and Li, Jiahao and Xie, Wenxuan and others},
   journal={arXiv preprint arXiv:2607.19064},
   year={2026}
 }
@@ -136,5 +169,6 @@ Licensing is per-model:
 | Model | License |
 | :--- | :--- |
 | **Mage-VL** | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
+| **Mage-VL-Cowork** | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
 | **Mage-ViT** | [MIT](LICENSE) |
 | **Mage-Flow** | [MIT](LICENSE) |
